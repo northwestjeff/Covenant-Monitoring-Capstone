@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Covenants in Portfolio</h1>
+    <table class="table table-bordered hover">
+        <thead>
+        <tr>
+            <th>Covenant ID #</th>
+            <th>Organization Name</th>
+            <th>Loan Amount</th>
+            <th>Loan ID #</th>
+            <th>Condition</th>
+            <th>Compliance</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in covenant %}
+            <tr>
+                <td><a href="{% url 'cov' i.slug %}">{{ i.cov_id }}</a></td>
+                <td><a href="{% url 'organization' i.loans.organization.slug %}">{{ i.loans.organization.business_name }}</a></td>
+                <td>{{ i.loans.amount }}</td>
+                <td>{{ i.loans.loan_id }}</td>
+                <td>{{ i.indicator }} {{ i.operator_options }} ${{ i.standard }}</td>
+                <td>{{ i.compliance }}</td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+{% endblock %}

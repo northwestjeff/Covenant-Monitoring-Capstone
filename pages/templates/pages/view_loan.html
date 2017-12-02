@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="jumbotron">
+        <h3><a href="{% url 'organization' loans.organization.slug %}">{{ loans.organization.business_name }}</a></h3>
+        <p>Loan ID: #{{ loans.loan_id }}</p>
+        <p>Amount: {{ loans.amount }} </p>
+    </div>
+    <table class="table table-bordered hover">
+        <thead>
+        <tr>
+            <th>Covenant ID #</th>
+            <th>Indicator</th>
+            <th>Operator</th>
+            <th>Standard</th>
+            <th>Compliance</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in loans.covenants.all %}
+            <tr>
+                <td><a href="{% url 'cov' i.slug %}">{{ i.cov_id }}</a></td>
+                <td>{{ i.indicator }}</td>
+                <td>{{ i.operator_options }}</td>
+                <td>{{ i.standard }}</td>
+                <td>{{ i.compliance }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        {#        {{ loans.covenants.all|length }}#}
+    </table>
+{#    <h2>Financial Statements</h2><br>#}
+    {#    {{ loans.organization.statements.all }}#}
+{##}
+{#    {% for i in loans.organization.statements.all %}#}
+{#        {{ i.name }}#}
+{#        {{ i.start_period }} <br>#}
+{#        {% for x in i.data.all %}#}
+{#            {{ x.column_headers }}#}
+{#            {{ x.value }}<br>#}
+{#            <br>#}
+{#        {% endfor %}#}
+
+        {#        <table class="table-condensed">#}
+        {#        <thead>#}
+        {#        <tr>#}
+        {#            {{ i.organization.statements.name }}: {{ i.organization.statements.start_period }}-{{ i.organization.statements.end_period }}#}
+        {#            <th>Line Item</th>#}
+        {#            <th>Total</th>#}
+        {#        </tr>#}
+        {#        </thead>#}
+        {#        <tbody>#}
+        {#        {% for x in i %}#}
+        {#            <tr id="{{ i.organization.statements.column_headers }}">#}
+        {#                <th>{{ i.organization.statements.column_headers }}</th>#}
+        {#                <th>{{ i.organization.statements.value }}</th>#}
+        {#            </tr>#}
+        {#        {% endfor %}#}
+{#    {% endfor %}#}
+    </table>
+
+{% endblock %}

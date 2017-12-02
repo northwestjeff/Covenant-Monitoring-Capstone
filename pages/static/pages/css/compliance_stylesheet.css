@@ -1,0 +1,55 @@
+body {
+  font-family: 'Assistant', sans-serif; }
+
+.header {
+  background-color: #A0a083;
+  color: white; }
+
+.menu {
+  background-color: #EAE0CC;
+  margin-bottom: 15px; }
+
+a.tab:visited {
+  color: white;
+  text-decoration: none; }
+
+h1 {
+  padding: 10px 10px; }
+
+h4 {
+  color: #5c4f4a; }
+
+.table {
+  margin-bottom: 100px; }
+
+.tableHeader {
+  background-color: #4d6a6d;
+  color: floralwhite; }
+
+.tableTitle, .titleName {
+  margin: 8px 5px;
+  background-color: #EAE0CC;
+  border: solid 1px white; }
+
+.portSummary {
+  border: solid white 1px; }
+
+.titleName {
+  font-size: large; }
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white; }
+
+.width div {
+  text-shadow: 1px 1px black; }
+
+section {
+  border: 1px solid white;
+  padding: 5px; }
+
+/*# sourceMappingURL=compliance_stylesheet.css.map */

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="jumbotron">
+       <h1>{{ organization.business_name }}</h1> <br>
+    </div>
+
+{#    <div class="jumbotron">#}
+{#            <h3>{{ organization.business_name }}</h3>#}
+{#            <p>Total Loans: {{ organization.loans|length }}</p>#}
+{#            <p>Total Portfolio Amount: {{ loans_sum }} </p>#}
+{#            <section id="bar-chart">#}
+{#                <div class="chart"></div>#}
+{#            </section>#}
+{##}
+{##}
+{#        </div>#}
+
+
+    <table class="table table-bordered hover">
+        <thead>
+        <tr>
+            <th>Loan ID #</th>
+            <th>Amount</th>
+            <th>Business Name</th>
+            <th>Number of Covenants</th>
+            <th>Compliance</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in organization.loans.all %}:
+            <tr>
+                <td><a href="{% url 'loans' i.slug %}">{{ i.loan_id }}</a></td>
+                <td>{{ i.amount }}</td>
+                <td><a href="{% url 'organization' organization.slug %}">{{ organization.business_name }}</a></td>
+                <td>{{ i.covenants.all|length }}</td>
+            <td>{{ i.loan_compliance }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+
+    <h4>X Get User Authentication X</h4>
+
+{#    <h5>Financial Statements</h5><br>#}
+{#    {% for x in organization.statements.all %}#}
+{#        <table class="table table-hover">#}
+{#        <thead>#}
+{#        <tr>#}
+{#            {{ x.name }}: {{ x.start_period }}-{{ x.end_period }}#}
+{#            <th>Line Item</th>#}
+{#            <th>Total</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for z in x.data.all %}#}
+{#            <tr id="{{ z.column_headers }}">#}
+{#                <th>{{ z.column_headers }}</th>#}
+{#                <th>{{ z.value }}</th>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
+</table>
+{% endblock %}
+{##}
+{##}
+{#<table class="table table-bordered hover">#}
+{#    <thead>#}
+{#    <tr>#}
+{#        <th>Organization Name</th>#}
+{#        <th>Number of Loans</th>#}
+{#    </tr>#}
+{#    </thead>#}
+{#    <tbody>#}
+{#    {% for i in organization %}#}
+{#        <tr>#}
+{#            <td><a href="{% url 'organization' i.slug %}">{{ i.business_name }}</a></td>#}
+{#            <td>{{ i.loans.all|length }}</td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#    </tbody>#}
+{##}
+{#</table>#}

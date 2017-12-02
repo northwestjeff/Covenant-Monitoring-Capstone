@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Organizations in Portfolio</h1>
+    <table class="table table-bordered hover">
+        <thead>
+        <tr>
+            <th>Organization Name</th>
+            <th>Number of Loans</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in organization %}
+            <tr>
+                <td><a href="{% url 'organization' i.slug %}">{{ i.business_name }}</a></td>
+                <td>{{ i.loans.all|length }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for i in statement %}
+    {{ i.name }} <br>
+    {{ i.time }}<br>
+    {% for foo in i.data.all %}
+        {{ foo.column_headers }}: {{ foo.value }}<br>
+
+    {% endfor %}
+
+    <hr>
+
+
+{% endfor %}
+
+{% endblock %}

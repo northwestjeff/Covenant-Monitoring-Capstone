@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <table class="table table-bordered hover">
+        <thead>
+        <tr>
+            <th>Loan ID #</th>
+            <th>Amount</th>
+            <th>Business Name</th>
+            <th>Number of Covenants</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in loans %}:
+            <tr>
+                <td><a href="{% url 'loans' i.covenants.slug %}">{{ i.loan_id }}</a></td>
+                <td>{{ i.amount }}</td>
+                <td><a href="{% url 'organization' i.organization.slug %}">{{ i.organization.business_name }}</a></td>
+                <td>{{ i.covenants.all|length }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="col-10">
+        <div class="jumbotron">
+            <h3>Portfolio Summary</h3>
+            <p>Total Loans: {{ loans|length }}</p>
+            <p>Total Portfolio Amount: {{ loans_sum }} </p>
+            <section id="bar-chart">
+                <div class="chart"></div>
+            </section>
+        </div>
+        <div>
+            <h4 id="portfolio">
+                Portfolio
+            </h4>
+        </div>
+        <table class="table table-bordered hover">
+            <thead>
+            <tr>
+                <th>Loan ID #</th>
+                <th>Organization Name</th>
+                <th>Loan Amount</th>
+                <th>Compliance</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in loans %}
+                <tr>
+                    <td><a href="{% url 'loans' i.slug %}">{{ i.loan_id }}</a></td>
+                    <td><a href="{% url 'organization' i.organization.slug %}">{{ i.organization }}</a></td>
+                    <td>{{ i.amount }}</td>
+                    <td>{{ i.loan_compliance }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <h4 id="nc">
+                Noncompliant Covenants
+            </h4>
+        </div>
+        <table class="table table-bordered hover">
+            <thead>
+            <tr>
+                <th>Covenant ID #</th>
+                <th>Organization Name</th>
+                <th>Loan Amount</th>
+                <th>Compliance</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in covenants %}
+                {% if not i.compliance %}
+                    <tr>
+                        <td><a href="{% url 'cov' i.slug %}">{{ i.cov_id }}</a></td>
+                        <td><a href="{% url 'organization' i.loans.organization.slug %}">{{ i.loans.organization }}</a>
+                        </td>
+                        <td>{{ i.loans.amount }}</td>
+                        <td>{{ i.compliance }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var data = [
+            {% for i in temp_list %}
+                {{ i }},
+            {% endfor %}
+        ]
+
+        function getLarge(total, num) {
+            if (total >= num) {
+                return total
+            } else {
+                return num
+            }
+        }
+
+        var largest = data.reduce(getLarge)
+        console.log(largest)
+
+
+        d3.select(".chart")
+            .selectAll("div")
+            .data(data)
+            .enter()
+            .append("div")
+            .style("width", function (d) {
+                var wid = (d / largest) * 100
+                return wid + "%";
+            })
+            .text(function (d) {
+                if (d > 4000) {
+                    return '$' + d;
+                }
+                return "..."
+            });
+    </script>
+{% endblock %}

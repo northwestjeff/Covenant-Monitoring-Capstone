@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-bordered hover">
+        <thead>
+        <tr>
+            <th>Covenant ID #</th>
+            <th>Organization Name</th>
+            <th>Loan Amount</th>
+            <th>Condition</th>
+            <th>Measure</th>
+            <Th>Operator</Th>
+            <th>Standard</th>
+            <th>Compliant</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td id="cov_id">{{ covenant.cov_id }}</td>
+            <td id="organization">
+                <a href="{% url 'organization' covenant.loans.organization.slug %}">{{ covenant.loans.organization.business_name }}</a>
+            </td>
+            <td id="loan_amout">{{ covenant.loans.amount }}</td>
+            <td id="covenant">{{ covenant.indicator }} <br> {{ covenant.operator_options }} <br>${{ covenant.standard }}
+            </td>
+            <td id="check_a">{% if covenant.comparison %}{{ covenant.comparison }}{% endif %}</td>
+            <td id="operator"></td>
+            <td id="check_b">{% if values %}${{ values }}{% endif %}</td>
+            <td id="compliant">{{ covenant.compliance }}</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <h5>Financial Statements</h5><br>
+
+    <select name="statements" id="statement-select">Select Statements
+        <option value="null">---</option>
+        {% for x in covenant.loans.organization.statements.all %}
+        <option value="{{ x.id }}">{{ x.name }}, {{ x.start_period }}- {{ x.end_period }}</option>
+    {% endfor %}
+    </select>
+
+    <div id="statement-content">
+
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+    $('#statement-select').change(function () {
+        $.ajax({
+            url:{% url 'cov_statement' %},
+            type: 'POST',
+            data: {
+                pk: $(this).val()
+            },
+            success: function (response) {
+                $('#statement-content').html(response)
+
+            }
+        })
+    })
+    </script>
+{% endblock %}
+

@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'pages/css/compliance_stylesheet.css' %}" type="text/css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <header class="row header">
+        <h1 id="title">Covenant Monitoring</h1>
+    </header>
+    <div class="row menu">
+        <div class="col-2">
+            <h4 id="portfolio"><a class="tab" href="http://localhost:8000/">Portfolio</a></h4>
+        </div>
+        <div class="col-2">
+            <h4 id="organizations"><a class="tab" href="http://localhost:8000/org">Organizations</a></h4>
+        </div>
+        <div class="col-2">
+            <h4 id="covenants"><a class="tab" href="http://localhost:8000/covenants/">Covenants</a></h4>
+        </div>
+        {#        <div class="col-2">#}
+        {#            <h4 id="loans"><a href="http://localhost:8000/loans">Loans</a></h4>#}
+        {#        </div>#}
+        <div class="col-2">
+            <h4 id="new-loan"><a class="tab" href="http://localhost:8000/new_loan">New Loan</a></h4>
+        </div>
+        <div class="col-2">
+            <h4 id="new-covenant"><a class="tab" href="http://localhost:8000/new_covenant">New Covenant</a></h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="col-1"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script
+    src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+    integrity = "sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin = "anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+</script>
+{% block js1 %}
+{% endblock %}
+<script src="{% static 'pages/js/main.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+{% block js %}
+{% endblock %}
+</body>
+</html>
