@@ -3,7 +3,7 @@ chardet==3.0.4
 Django==1.10
 django-localflavor==1.5.2
 django-money==0.12
-ecdsa==0.13
+ecdsa==0.13.3
 future==0.16.0
 idna==2.6
 py-moneyed==0.7.0
