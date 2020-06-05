@@ -1,6 +1,6 @@
 certifi==2017.7.27.1
 chardet==3.0.4
-Django==1.10
+Django==1.11.29
 django-localflavor==1.5.2
 django-money==0.12
 ecdsa==0.13
